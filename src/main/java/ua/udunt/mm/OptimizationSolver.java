@@ -3,9 +3,6 @@ package ua.udunt.mm;
 import java.util.Random;
 import java.util.function.Function;
 
-/**
- * Клас, що реалізує різні методи оптимізації для пошуку мінімуму функції двох змінних.
- */
 public class OptimizationSolver {
 
     /**
@@ -17,10 +14,10 @@ public class OptimizationSolver {
      * Виконує простий одновимірний пошук мінімуму функції шляхом сканування
      * заданого діапазону з фіксованим кроком.
      *
-     * @param func Функція однієї змінної, для якої шукається мінімум.
+     * @param func     Функція однієї змінної, для якої шукається мінімум.
      * @param initialX Початкове значення змінної для пошуку.
-     * @param range Діапазон (в обидва боки від initialX), в якому ведеться пошук.
-     * @param step Крок сканування діапазону.
+     * @param range    Діапазон (в обидва боки від initialX), в якому ведеться пошук.
+     * @param step     Крок сканування діапазону.
      * @return Значення змінної, що відповідає знайденому локальному мінімуму в заданому діапазоні.
      */
     private static double simpleOneDimensionalSearch(java.util.function.Function<Double, Double> func, double initialX, double range, double step) {
@@ -42,9 +39,9 @@ public class OptimizationSolver {
      * Реалізує метод покоординатного спуску для пошуку мінімуму функції двох змінних.
      * На кожній ітерації виконується одновимірний пошук мінімуму вздовж кожної координати.
      *
-     * @param func Цільова функція двох змінних (має реалізовувати інтерфейс TargetFunction, визначений окремо).
-     * @param startX Початкове значення координати X.
-     * @param startY Початкове значення координати Y.
+     * @param func    Цільова функція двох змінних (має реалізовувати інтерфейс TargetFunction, визначений окремо).
+     * @param startX  Початкове значення координати X.
+     * @param startY  Початкове значення координати Y.
      * @param epsilon Бажана точність (критерій зупинки).
      */
     public static void coordinateDescent(TargetFunction func, double startX, double startY, double epsilon) {
@@ -107,9 +104,9 @@ public class OptimizationSolver {
      * На кожній ітерації генерується випадковий напрямок і робиться крок.
      * Якщо крок вдалий, точка оновлюється. Розмір кроку адаптивно зменшується.
      *
-     * @param func Цільова функція двох змінних (має реалізовувати інтерфейс TargetFunction, визначений окремо).
-     * @param startX Початкове значення координати X.
-     * @param startY Початкове значення координати Y.
+     * @param func    Цільова функція двох змінних (має реалізовувати інтерфейс TargetFunction, визначений окремо).
+     * @param startX  Початкове значення координати X.
+     * @param startY  Початкове значення координати Y.
      * @param epsilon Бажана точність (критерій зупинки, також впливає на мінімальний розмір кроку).
      */
     public static void randomSearch(TargetFunction func, double startX, double startY, double epsilon) {
@@ -164,13 +161,11 @@ public class OptimizationSolver {
                             i, currentX, currentY, currentValue, stepSize);
                 }
             }
-
             // Якщо не було покращення протягом кількох спроб, зменшуємо розмір кроку
             if (!improved && noImprovementStreak > 5) {
                 stepSize /= 2.0;
                 noImprovementStreak = 0; // Скидаємо лічильник
             }
-
             // Критерії зупинки
             if (Math.abs(currentValue - prevValue) < epsilon && stepSize < epsilon / 10) {
                 System.out.println("Random Search: Convergence reached");
@@ -191,12 +186,12 @@ public class OptimizationSolver {
      * Рух відбувається в напрямку антиградієнта функції.
      * Швидкість навчання (розмір кроку) адаптивно зменшується, якщо новий крок не покращує результат.
      *
-     * @param func Цільова функція двох змінних (має реалізовувати інтерфейс TargetFunction, визначений окремо).
+     * @param func      Цільова функція двох змінних (має реалізовувати інтерфейс TargetFunction, визначений окремо).
      * @param gradXFunc Функція для обчислення компоненти градієнта по X (має реалізовувати інтерфейс GradientComponent, визначений окремо).
      * @param gradYFunc Функція для обчислення компоненти градієнта по Y (має реалізовувати інтерфейс GradientComponent, визначений окремо).
-     * @param startX Початкове значення координати X.
-     * @param startY Початкове значення координати Y.
-     * @param epsilon Бажана точність (критерій зупинки).
+     * @param startX    Початкове значення координати X.
+     * @param startY    Початкове значення координати Y.
+     * @param epsilon   Бажана точність (критерій зупинки).
      */
     public static void gradientDescent(TargetFunction func,
                                        GradientComponent gradXFunc,
